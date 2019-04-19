@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import {xml2json} from 'xml-js';
-import { getSongs } from '../helpers/formatData';
+import { Typography } from '@material-ui/core';
+
+import AppBarComponent from './AppBar/AppBarComponent';
+import SongListComponent from './SongList/SongListComponent';
+
+import { getSongs } from '../helpers/actions';
 
 class App extends Component {
   constructor(props) {
@@ -12,26 +15,14 @@ class App extends Component {
   }
 
   componentDidMount() {
-    axios.get(`https://kepler.space/frontend2019/${process.env.REACT_APP_API_KEY}/listSongs`).then((response) => {
-      const result = xml2json(response.data, {compact: true});
-      const songs = getSongs(JSON.parse(result).response.songs.song)
-
-      this.setState({songs: songs});
-    })
+    getSongs().then( data => this.setState({songs: data}));
   }
 
   render() {
     return (
       <React.Fragment>
-        <h1>k-tunes</h1>
-        <ul>
-          {this.state.songs.map( song => (
-            <li key={song.id}>
-              <h3>{song.name}</h3>
-              <h4>{song.artist}</h4>
-            </li>
-          ))}
-        </ul>
+        <AppBarComponent />
+        <SongListComponent songs={this.state.songs} />
       </React.Fragment>
     )
   }

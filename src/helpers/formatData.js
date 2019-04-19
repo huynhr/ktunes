@@ -4,7 +4,7 @@ function getId(id) {
   return str.trim();
 }
 
-export function getSongs(songs) {
+export function formatSongs(songs) {
   return songs.reduce((output, song) => {
     output.push({
       name: song['_attributes'].name,
