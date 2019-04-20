@@ -4,7 +4,7 @@ import { Paper, Typography, Grid, Button } from '@material-ui/core';
 
 import styles from './styles';
 
-const SongComponent = ({ song, classes }) => (
+const SongComponent = ({ song, classes, downloadSong, authenticated }) => (
   <React.Fragment>
     <Paper className={classes.paperItem}>
       <Grid container justify='space-between'>
@@ -24,7 +24,14 @@ const SongComponent = ({ song, classes }) => (
         <Grid item xs={7}>
           <Grid container justify='flex-end'>
             <Grid item>
-              <Button variant='contained' color='primary'>Download</Button>
+              <Button
+                variant='contained'
+                color='primary'
+                onClick={() => downloadSong(song.id)}
+                disabled={authenticated === false}
+              >
+                Download
+              </Button>
             </Grid>
           </Grid>
         </Grid>

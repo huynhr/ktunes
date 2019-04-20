@@ -29,3 +29,11 @@ export function handlesLoginReturn(res) {
     message: res._text || '',
   }
 }
+
+export function handlesDownload(res) {
+  return {
+    status: res._attributes.success,
+    song: res.rawdata._text,
+    encoding: res.rawdata._attributes.encoding
+  }
+}

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import fileDownload from 'js-file-download';
 
 import AppBarComponent from './AppBar/AppBarComponent';
 import SongListComponent from './SongList/SongListComponent';
 import LoginModalComponent from './LoginModal/LoginModalComponent';
-import { getSongs, signUp, login } from '../helpers/api';
+import { getSongs, signUp, login, downloadSong } from '../helpers/api';
 import { LOGIN_TAB, SIGN_UP_TAB } from '../helpers/constants';
 
 class App extends Component {
@@ -39,6 +40,14 @@ class App extends Component {
   updateForm = (e) => {
     this.setState({
       user: { ...this.state.user, [e.target.name]: e.target.value}
+    });
+  }
+
+  downloadSong = (id) => {
+    downloadSong({...this.state.user, songId: id}).then(data => {
+      const song = this.state.songs.find(song => song.id === id);
+      console.log(data)
+      fileDownload(data.song, `${song.name}-${song.artist}.midi`)
     });
   }
 
@@ -88,7 +97,11 @@ class App extends Component {
           authenticated={this.state.authenticated}
           openCloseModal={this.openCloseModal}
         />
-        <SongListComponent songs={this.state.songs} />
+        <SongListComponent
+          songs={this.state.songs}
+          authenticated={this.state.authenticated}
+          downloadSong={this.downloadSong}
+        />
       </React.Fragment>
     )
   }

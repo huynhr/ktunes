@@ -5,8 +5,6 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
-  DialogTitle,
   Tabs,
   Tab,
 } from '@material-ui/core';
