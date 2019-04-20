@@ -34,7 +34,24 @@ class App extends Component {
     this.setState({tab: tabNumber});
   }
 
+  updateForm = (e) => {
+    this.setState({
+      user: { ...this.state.user, [e.target.name]: e.target.value}
+    });
+  }
+
+  submitForm = () => {
+    console.log(this.state.user)
+  }
+
+  resetForm = () => {
+    this.setState({
+      user: { ...this.state.user, name: '', email: '', password: '' }
+    })
+  }
+
   render() {
+
     return (
       <React.Fragment>
         <LoginModalComponent
@@ -43,6 +60,9 @@ class App extends Component {
           user={this.state.user}
           openCloseModal={this.openCloseModal}
           switchTab={this.switchTab}
+          updateForm={this.updateForm}
+          resetForm={this.resetForm}
+          submitForm={this.submitForm}
         />
         <AppBarComponent
           authenticated={this.state.authenticated}

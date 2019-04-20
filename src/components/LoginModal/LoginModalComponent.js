@@ -21,12 +21,15 @@ const LoginModalComponent = ({
   tab,
   switchTab,
   user,
+  updateForm,
+  resetForm,
+  submitForm,
 }) => {
 
   const actionText = tab === LOGIN_TAB ? 'Login' : 'Sign up';
 
   return (
-  <div>
+  <form onSubmit={submitForm}>
     <Dialog
       open={open}
       onClose={openCloseModal}
@@ -38,19 +41,19 @@ const LoginModalComponent = ({
         </Tabs>
       </AppBar>
       <DialogContent>
-        {tab === LOGIN_TAB && <LoginFormComponent user={user} />}
-        {tab === SIGN_UP_TAB && <SignUpFormComponent user={user} />}
+          {tab === LOGIN_TAB && <LoginFormComponent user={user} updateForm={updateForm} />}
+          {tab === SIGN_UP_TAB && <SignUpFormComponent user={user} updateForm={updateForm} />}
       </DialogContent>
       <DialogActions>
         <Button onClick={openCloseModal} color="primary">
           Cancel
         </Button>
-        <Button onClick={openCloseModal} color="primary">
+        <Button onClick={submitForm} color="primary">
           {actionText}
         </Button>
       </DialogActions>
     </Dialog>
-  </div>
+  </form>
 )};
 
 export default LoginModalComponent

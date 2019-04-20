@@ -5,21 +5,27 @@ import {
 
 const LoginFormComponent = ({
   user,
+  updateForm,
 }) => (
-  <form>
+  <React.Fragment>
     <TextField
-      label="Email"
+      name='email'
+      label='Email'
       value={user.email}
-      margin="normal"
+      margin='normal'
       fullWidth
+      onChange={e => updateForm(e)}
     />
     <TextField
-      label="Password"
+      name='password'
+      label='Password'
       value={user.password}
-      margin="normal"
+      margin='normal'
       fullWidth
+      onChange={e => updateForm(e)}
+      type='password'
     />
-  </form>
+  </React.Fragment>
 )
 
 export default LoginFormComponent;

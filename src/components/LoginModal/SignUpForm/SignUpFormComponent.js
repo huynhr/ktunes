@@ -4,28 +4,36 @@ import {
 } from '@material-ui/core';
 
 const SignUpFormComponent = ({
-  user
+  user,
+  updateForm,
 }) => (
-    <form>
+    <React.Fragment>
       <TextField
+        name='name'
         label="Name"
         value={user.name}
         margin="normal"
         fullWidth
+        onChange={e => updateForm(e)}
       />
       <TextField
+        name='email'
         label="Email"
         value={user.email}
         margin="normal"
         fullWidth
+        onChange={e => updateForm(e)}
       />
       <TextField
+        name='password'
         label="Password"
         value={user.password}
         margin="normal"
         fullWidth
+        onChange={e => updateForm(e)}
+        type='password'
       />
-    </form>
+    </React.Fragment>
   )
 
 export default SignUpFormComponent;
