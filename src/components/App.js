@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import fileDownload from 'js-file-download';
+import { Typography } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import AppBarComponent from './AppBar/AppBarComponent';
 import SongListComponent from './SongList/SongListComponent';
 import LoginModalComponent from './LoginModal/LoginModalComponent';
+import styles from './styles';
 import { getSongs, signUp, login, downloadSong } from '../helpers/api';
 import { LOGIN_TAB, SIGN_UP_TAB, HOME_TAB } from '../helpers/constants';
-import { Typography } from '@material-ui/core';
 
 class App extends Component {
   constructor(props) {
@@ -97,6 +99,8 @@ class App extends Component {
 
   render() {
 
+    const title = this.state.menu === HOME_TAB ? 'Songs' : 'Downloaded songs'
+
     return (
       <React.Fragment>
           <LoginModalComponent
@@ -119,7 +123,7 @@ class App extends Component {
             drawer={this.state.drawer}
             updateMenu={this.updateMenu}
           />
-          <Typography variant='h5'>Songs</Typography>
+          <Typography variant='h5' className={this.props.classes.title}>{title}</Typography>
           <SongListComponent
             songs={this.state.songs}
             downloadedSongs={this.state.downloadedSongs}
@@ -132,4 +136,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withStyles(styles)(App);
