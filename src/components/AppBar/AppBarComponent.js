@@ -18,6 +18,7 @@ const AppBarComponent = ({
   openCloseModal,
   drawer,
   openCloseDrawer,
+  updateMenu,
 }) => {
 
   return (
@@ -36,7 +37,7 @@ const AppBarComponent = ({
         }
       </Toolbar>
     </AppBar>
-    <DrawerComponent drawer={drawer} openCloseDrawer={openCloseDrawer} />
+    <DrawerComponent drawer={drawer} openCloseDrawer={openCloseDrawer} updateMenu={updateMenu} />
   </div>
 )};
 

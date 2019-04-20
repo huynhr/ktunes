@@ -5,7 +5,7 @@ import AppBarComponent from './AppBar/AppBarComponent';
 import SongListComponent from './SongList/SongListComponent';
 import LoginModalComponent from './LoginModal/LoginModalComponent';
 import { getSongs, signUp, login, downloadSong } from '../helpers/api';
-import { LOGIN_TAB, SIGN_UP_TAB } from '../helpers/constants';
+import { LOGIN_TAB, SIGN_UP_TAB, HOME_TAB } from '../helpers/constants';
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +24,7 @@ class App extends Component {
       errorMessage: '',
       loginErrorMsg: '',
       drawer: false,
+      menu: HOME_TAB,
     }
   }
 
@@ -39,6 +40,10 @@ class App extends Component {
     this.setState({tab: tabNumber});
   }
 
+  updateMenu = (tabNumber) => {
+    this.setState({menu: tabNumber});
+  }
+
   openCloseDrawer = () => {
     this.setState(prevState => ({drawer: !prevState.drawer}));
   }
@@ -52,8 +57,10 @@ class App extends Component {
   downloadSong = (id) => {
     downloadSong({...this.state.user, songId: id}).then(data => {
       const song = this.state.songs.find(song => song.id === id);
-      console.log(data)
       fileDownload(data.song, `${song.name}-${song.artist}.midi`)
+      login(this.state.user).then(data => {
+        this.setState({downloadedSongs: data.songs});
+      });
     });
   }
 
@@ -109,12 +116,14 @@ class App extends Component {
           openCloseModal={this.openCloseModal}
           openCloseDrawer={this.openCloseDrawer}
           drawer={this.state.drawer}
+          updateMenu={this.updateMenu}
         />
         <SongListComponent
           songs={this.state.songs}
           downloadedSongs={this.state.downloadedSongs}
           authenticated={this.state.authenticated}
           downloadSong={this.downloadSong}
+          menu={this.state.menu}
         />
       </React.Fragment>
     )

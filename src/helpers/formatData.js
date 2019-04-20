@@ -23,9 +23,16 @@ export function handlesSignUpReturn(res) {
 }
 
 export function handlesLoginReturn(res) {
+  let songs = res.songs.song;
+  if (Array.isArray(songs)) {
+    songs = res.songs.song ? res.songs.song.map(song => getId(song._text)) : [];
+  } else {
+    songs = [getId(songs._text)];
+  }
+
   return {
     status: res._attributes.success,
-    songs: res.songs.song.map(song => getId(song._text)),
+    songs: songs,
     message: res._text || '',
   }
 }
