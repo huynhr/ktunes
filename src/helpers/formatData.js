@@ -1,4 +1,4 @@
-function getId(id) {
+export function getId(id) {
   let str = id.replace('↵', '');
   str = str.replace('↵', '');
   return str.trim();
@@ -25,7 +25,7 @@ export function handlesSignUpReturn(res) {
 export function handlesLoginReturn(res) {
   return {
     status: res._attributes.success,
-    songs: res.songs,
+    songs: res.songs.song.map(song => getId(song._text)),
     message: res._text || '',
   }
 }

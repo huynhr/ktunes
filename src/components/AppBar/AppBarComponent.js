@@ -9,20 +9,23 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import { withStyles } from '@material-ui/core/styles';
 
+import DrawerComponent from './Drawer/DrawerComponent';
 import styles from './styles';
 
 const AppBarComponent = ({
   classes,
   authenticated,
   openCloseModal,
+  drawer,
+  openCloseDrawer,
 }) => {
 
   return (
   <div className={classes.root}>
     <AppBar position='static'>
       <Toolbar>
-        <IconButton className={classes.menuButton} color='inherit' aria-label='Menu'>
-          <MenuIcon />
+        <IconButton className={classes.menuButton} color='inherit' aria-label='Menu' onClick={openCloseDrawer}>
+          {authenticated === true && <MenuIcon />}
         </IconButton>
         <Typography variant='h6' color='inherit' className={classes.grow}>
           K-Tunes
@@ -33,6 +36,7 @@ const AppBarComponent = ({
         }
       </Toolbar>
     </AppBar>
+    <DrawerComponent drawer={drawer} openCloseDrawer={openCloseDrawer} />
   </div>
 )};
 

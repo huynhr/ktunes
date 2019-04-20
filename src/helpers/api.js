@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {xml2json} from 'xml-js';
 
-import { formatSongs, handlesSignUpReturn, handlesDownload } from './formatData';
+import { formatSongs, handlesSignUpReturn, handlesDownload, handlesLoginReturn, getId } from './formatData';
 
 export function getSongs() {
   return axios.get(`https://kepler.space/frontend2019/${process.env.REACT_APP_API_KEY}/listSongs`)
@@ -26,7 +26,7 @@ export function login(params) {
     `https://kepler.space/frontend2019/${process.env.REACT_APP_API_KEY}/listSongs?email=${params.email}&password=${params.password}`
   ).then(response => {
     const result = xml2json(response.data, { compact: true });
-    return handlesSignUpReturn(JSON.parse(result).response)
+    return handlesLoginReturn(JSON.parse(result).response)
   });
 }
 

@@ -3,7 +3,7 @@ const styles = {
     'list-style-type': 'none',
   },
   item: {
-    'margin': '30px',
+    'margin': '20px',
   }
 }
 export default styles;

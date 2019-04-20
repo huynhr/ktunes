@@ -12,6 +12,7 @@ class App extends Component {
     super(props);
     this.state = {
       songs: [],
+      downloadedSongs: [],
       authenticated: false,
       open: false,
       tab: LOGIN_TAB,
@@ -22,6 +23,7 @@ class App extends Component {
       },
       errorMessage: '',
       loginErrorMsg: '',
+      drawer: false,
     }
   }
 
@@ -35,6 +37,10 @@ class App extends Component {
 
   switchTab = (tabNumber) => {
     this.setState({tab: tabNumber});
+  }
+
+  openCloseDrawer = () => {
+    this.setState(prevState => ({drawer: !prevState.drawer}));
   }
 
   updateForm = (e) => {
@@ -63,7 +69,11 @@ class App extends Component {
     } else {
       login(this.state.user).then(data => {
         if (data.status === 'true') {
-          this.setState(prevState => ({ authenticated: true, open: !prevState.open }));
+          this.setState(prevState => ({
+            authenticated: true,
+            open: !prevState.open,
+            downloadedSongs: data.songs
+          }));
         } else {
           this.setState({loginErrorMsg: data.message});
         }
@@ -87,18 +97,22 @@ class App extends Component {
           user={this.state.user}
           errorMessage={this.state.errorMessage}
           loginErrorMsg={this.state.loginErrorMsg}
+          drawer={this.state.drawer}
           openCloseModal={this.openCloseModal}
           switchTab={this.switchTab}
           updateForm={this.updateForm}
           resetForm={this.resetForm}
           submitForm={this.submitForm}
-        />
+          />
         <AppBarComponent
           authenticated={this.state.authenticated}
           openCloseModal={this.openCloseModal}
+          openCloseDrawer={this.openCloseDrawer}
+          drawer={this.state.drawer}
         />
         <SongListComponent
           songs={this.state.songs}
+          downloadedSongs={this.state.downloadedSongs}
           authenticated={this.state.authenticated}
           downloadSong={this.downloadSong}
         />
