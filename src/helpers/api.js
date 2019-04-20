@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {xml2json} from 'xml-js';
 
-import { formatSongs, handlesSignUpReturn, handlesDownload, handlesLoginReturn, getId } from './formatData';
+import { formatSongs, handlesSignUpReturn, handlesDownload, handlesLoginReturn } from './formatData';
 
 export function getSongs() {
   return axios.get(`https://kepler.space/frontend2019/${process.env.REACT_APP_API_KEY}/listSongs`)
