@@ -144,6 +144,7 @@ class App extends Component {
           authenticated={this.state.authenticated}
           downloadSong={this.downloadSong}
           menu={this.state.menu}
+          openCloseModal={this.openCloseModal}
         />
       </MuiThemeProvider>
       </React.Fragment>

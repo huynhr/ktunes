@@ -13,6 +13,7 @@ const SongListComponent = ({
   classes,
   downloadSong,
   authenticated,
+  openCloseModal,
 }) => {
 
   let currentSongList = [...songs];
@@ -28,7 +29,12 @@ const SongListComponent = ({
           : <ul className={classes.list}>
             {currentSongList.map(song => (
               <li key={song.id} className={classes.item}>
-                <SongComponent song={song} downloadSong={downloadSong} authenticated={authenticated} />
+                <SongComponent
+                  song={song}
+                  downloadSong={downloadSong}
+                  authenticated={authenticated}
+                  openCloseModal={openCloseModal}
+                />
               </li>
             ))}
           </ul>
