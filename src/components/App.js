@@ -14,6 +14,11 @@ class App extends Component {
       authenticated: false,
       open: false,
       tab: LOGIN_TAB,
+      user: {
+        name: '',
+        email: '',
+        password: '',
+      }
     }
   }
 
@@ -35,6 +40,7 @@ class App extends Component {
         <LoginModalComponent
           open={this.state.open}
           tab={this.state.tab}
+          user={this.state.user}
           openCloseModal={this.openCloseModal}
           switchTab={this.switchTab}
         />
