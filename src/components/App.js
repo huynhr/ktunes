@@ -67,15 +67,25 @@ class App extends Component {
     });
   }
 
+  authenticateSignUp = () => {
+    const values = Object.values(this.state.user);
+    return values.indexOf('') >= 0 ? false : true;
+  }
+
   submitForm = () => {
     if (this.state.tab === SIGN_UP_TAB) {
-      signUp(this.state.user).then(data => {
-        if (data.status === 'true') {
-          this.setState(prevState => ({authenticated: true,  open: !prevState.open}));
-        } else {
-          this.setState({errorMessage: data.message});
-        }
-      });
+      const formFilled = this.authenticateSignUp();
+      if (formFilled) {
+        signUp(this.state.user).then(data => {
+          if (data.status === 'true') {
+            this.setState(prevState => ({authenticated: true,  open: !prevState.open}));
+          } else {
+            this.setState({errorMessage: data.message});
+          }
+        });
+      } else {
+        this.setState({errorMessage: 'All fields are required'})
+      }
     } else {
       login(this.state.user).then(data => {
         if (data.status === 'true') {
