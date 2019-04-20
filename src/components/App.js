@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import fileDownload from 'js-file-download';
 import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -7,6 +8,8 @@ import AppBarComponent from './AppBar/AppBarComponent';
 import SongListComponent from './SongList/SongListComponent';
 import LoginModalComponent from './LoginModal/LoginModalComponent';
 import styles from './styles';
+import theme from '../helpers/theme';
+
 import { getSongs, signUp, login, downloadSong } from '../helpers/api';
 import { LOGIN_TAB, SIGN_UP_TAB, HOME_TAB } from '../helpers/constants';
 
@@ -113,34 +116,36 @@ class App extends Component {
 
     return (
       <React.Fragment>
-          <LoginModalComponent
-            open={this.state.open}
-            tab={this.state.tab}
-            user={this.state.user}
-            errorMessage={this.state.errorMessage}
-            loginErrorMsg={this.state.loginErrorMsg}
-            drawer={this.state.drawer}
-            openCloseModal={this.openCloseModal}
-            switchTab={this.switchTab}
-            updateForm={this.updateForm}
-            resetForm={this.resetForm}
-            submitForm={this.submitForm}
-            />
-          <AppBarComponent
-            authenticated={this.state.authenticated}
-            openCloseModal={this.openCloseModal}
-            openCloseDrawer={this.openCloseDrawer}
-            drawer={this.state.drawer}
-            updateMenu={this.updateMenu}
+      <MuiThemeProvider theme={theme}>
+        <LoginModalComponent
+          open={this.state.open}
+          tab={this.state.tab}
+          user={this.state.user}
+          errorMessage={this.state.errorMessage}
+          loginErrorMsg={this.state.loginErrorMsg}
+          drawer={this.state.drawer}
+          openCloseModal={this.openCloseModal}
+          switchTab={this.switchTab}
+          updateForm={this.updateForm}
+          resetForm={this.resetForm}
+          submitForm={this.submitForm}
           />
-          <Typography variant='h5' className={this.props.classes.title}>{title}</Typography>
-          <SongListComponent
-            songs={this.state.songs}
-            downloadedSongs={this.state.downloadedSongs}
-            authenticated={this.state.authenticated}
-            downloadSong={this.downloadSong}
-            menu={this.state.menu}
-          />
+        <AppBarComponent
+          authenticated={this.state.authenticated}
+          openCloseModal={this.openCloseModal}
+          openCloseDrawer={this.openCloseDrawer}
+          drawer={this.state.drawer}
+          updateMenu={this.updateMenu}
+        />
+        <Typography variant='h5' className={this.props.classes.title}>{title}</Typography>
+        <SongListComponent
+          songs={this.state.songs}
+          downloadedSongs={this.state.downloadedSongs}
+          authenticated={this.state.authenticated}
+          downloadSong={this.downloadSong}
+          menu={this.state.menu}
+        />
+      </MuiThemeProvider>
       </React.Fragment>
     )
   }
