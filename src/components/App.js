@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import AppBarComponent from './AppBar/AppBarComponent';
 import SongListComponent from './SongList/SongListComponent';
 import LoginModalComponent from './LoginModal/LoginModalComponent';
-import { getSongs } from '../helpers/actions';
-import { LOGIN_TAB } from '../helpers/constants';
+import { getSongs, signUp, login } from '../helpers/api';
+import { LOGIN_TAB, SIGN_UP_TAB } from '../helpers/constants';
 
 class App extends Component {
   constructor(props) {
@@ -18,12 +18,14 @@ class App extends Component {
         name: '',
         email: '',
         password: '',
-      }
+      },
+      errorMessage: '',
+      loginErrorMsg: '',
     }
   }
 
   componentDidMount() {
-    getSongs().then( data => this.setState({songs: data}));
+    getSongs().then(data => this.setState({songs: data}));
   }
 
   openCloseModal = () => {
@@ -41,7 +43,23 @@ class App extends Component {
   }
 
   submitForm = () => {
-    console.log(this.state.user)
+    if (this.state.tab === SIGN_UP_TAB) {
+      signUp(this.state.user).then(data => {
+        if (data.status === 'true') {
+          this.setState(prevState => ({authenticated: true,  open: !prevState.open}));
+        } else {
+          this.setState({errorMessage: data.message});
+        }
+      });
+    } else {
+      login(this.state.user).then(data => {
+        if (data.status === 'true') {
+          this.setState(prevState => ({ authenticated: true, open: !prevState.open }));
+        } else {
+          this.setState({loginErrorMsg: data.message});
+        }
+      })
+    }
   }
 
   resetForm = () => {
@@ -58,6 +76,8 @@ class App extends Component {
           open={this.state.open}
           tab={this.state.tab}
           user={this.state.user}
+          errorMessage={this.state.errorMessage}
+          loginErrorMsg={this.state.loginErrorMsg}
           openCloseModal={this.openCloseModal}
           switchTab={this.switchTab}
           updateForm={this.updateForm}

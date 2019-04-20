@@ -17,8 +17,6 @@ const AppBarComponent = ({
   openCloseModal,
 }) => {
 
-  let loginButton = authenticated === true ? 'Logout' : 'Login';
-
   return (
   <div className={classes.root}>
     <AppBar position='static'>
@@ -29,7 +27,10 @@ const AppBarComponent = ({
         <Typography variant='h6' color='inherit' className={classes.grow}>
           K-Tunes
           </Typography>
-        <Button color='inherit' onClick={openCloseModal}>{loginButton}</Button>
+        {authenticated === true
+            ? <Button color='inherit' onClick={() => window.location.reload()}>Logout</Button>
+            : <Button color='inherit' onClick={openCloseModal}>Login</Button>
+        }
       </Toolbar>
     </AppBar>
   </div>

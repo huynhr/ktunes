@@ -1,13 +1,16 @@
 import React from 'react';
 import {
-  TextField
+  TextField,
+  Typography,
 } from '@material-ui/core';
 
 const LoginFormComponent = ({
   user,
   updateForm,
+  loginErrorMsg,
 }) => (
   <React.Fragment>
+    <Typography color='error'>{loginErrorMsg !== '' && loginErrorMsg}</Typography>
     <TextField
       name='email'
       label='Email'

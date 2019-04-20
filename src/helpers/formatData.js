@@ -14,3 +14,18 @@ export function formatSongs(songs) {
     return output;
   }, []);
 }
+
+export function handlesSignUpReturn(res) {
+  return {
+    status: res._attributes.success,
+    message: res._text
+  }
+}
+
+export function handlesLoginReturn(res) {
+  return {
+    status: res._attributes.success,
+    songs: res.songs,
+    message: res._text || '',
+  }
+}

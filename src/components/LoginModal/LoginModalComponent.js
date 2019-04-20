@@ -24,6 +24,8 @@ const LoginModalComponent = ({
   updateForm,
   resetForm,
   submitForm,
+  errorMessage,
+  loginErrorMsg,
 }) => {
 
   const actionText = tab === LOGIN_TAB ? 'Login' : 'Sign up';
@@ -41,8 +43,8 @@ const LoginModalComponent = ({
         </Tabs>
       </AppBar>
       <DialogContent>
-          {tab === LOGIN_TAB && <LoginFormComponent user={user} updateForm={updateForm} />}
-          {tab === SIGN_UP_TAB && <SignUpFormComponent user={user} updateForm={updateForm} />}
+          {tab === LOGIN_TAB && <LoginFormComponent user={user} updateForm={updateForm} loginErrorMsg={loginErrorMsg} />}
+          {tab === SIGN_UP_TAB && <SignUpFormComponent user={user} updateForm={updateForm} errorMessage={errorMessage} />}
       </DialogContent>
       <DialogActions>
         <Button onClick={openCloseModal} color="primary">
