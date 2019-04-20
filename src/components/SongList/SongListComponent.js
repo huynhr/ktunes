@@ -2,7 +2,7 @@ import React from 'react'
 import { withStyles } from '@material-ui/core/styles';
 
 import styles from './styles';
-import SongComponent from './Song/SongComponent'
+import SongComponent from './Song/SongComponent';
 import NoSongComponent from '..//NoSongs/NoSongsComponent';
 import { DOWNLOADED_SONGS_TAB } from '../../helpers/constants';
 

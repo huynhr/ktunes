@@ -6,6 +6,7 @@ import SongListComponent from './SongList/SongListComponent';
 import LoginModalComponent from './LoginModal/LoginModalComponent';
 import { getSongs, signUp, login, downloadSong } from '../helpers/api';
 import { LOGIN_TAB, SIGN_UP_TAB, HOME_TAB } from '../helpers/constants';
+import { Typography } from '@material-ui/core';
 
 class App extends Component {
   constructor(props) {
@@ -98,33 +99,34 @@ class App extends Component {
 
     return (
       <React.Fragment>
-        <LoginModalComponent
-          open={this.state.open}
-          tab={this.state.tab}
-          user={this.state.user}
-          errorMessage={this.state.errorMessage}
-          loginErrorMsg={this.state.loginErrorMsg}
-          drawer={this.state.drawer}
-          openCloseModal={this.openCloseModal}
-          switchTab={this.switchTab}
-          updateForm={this.updateForm}
-          resetForm={this.resetForm}
-          submitForm={this.submitForm}
+          <LoginModalComponent
+            open={this.state.open}
+            tab={this.state.tab}
+            user={this.state.user}
+            errorMessage={this.state.errorMessage}
+            loginErrorMsg={this.state.loginErrorMsg}
+            drawer={this.state.drawer}
+            openCloseModal={this.openCloseModal}
+            switchTab={this.switchTab}
+            updateForm={this.updateForm}
+            resetForm={this.resetForm}
+            submitForm={this.submitForm}
+            />
+          <AppBarComponent
+            authenticated={this.state.authenticated}
+            openCloseModal={this.openCloseModal}
+            openCloseDrawer={this.openCloseDrawer}
+            drawer={this.state.drawer}
+            updateMenu={this.updateMenu}
           />
-        <AppBarComponent
-          authenticated={this.state.authenticated}
-          openCloseModal={this.openCloseModal}
-          openCloseDrawer={this.openCloseDrawer}
-          drawer={this.state.drawer}
-          updateMenu={this.updateMenu}
-        />
-        <SongListComponent
-          songs={this.state.songs}
-          downloadedSongs={this.state.downloadedSongs}
-          authenticated={this.state.authenticated}
-          downloadSong={this.downloadSong}
-          menu={this.state.menu}
-        />
+          <Typography variant='h5'>Songs</Typography>
+          <SongListComponent
+            songs={this.state.songs}
+            downloadedSongs={this.state.downloadedSongs}
+            authenticated={this.state.authenticated}
+            downloadSong={this.downloadSong}
+            menu={this.state.menu}
+          />
       </React.Fragment>
     )
   }
