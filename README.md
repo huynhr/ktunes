@@ -1,3 +1,9 @@
+## Project set up
+Add a .env file to the root of the project with the variable `REACT_APP_API_KEY=<your api key>`.
+Also run `npm install` to download all the required packages.
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
